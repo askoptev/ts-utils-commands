@@ -9,14 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ffmpeg_executor_1 = require("./commands/ffmpeg/ffmpeg.executor");
-const stream_logger_1 = require("./out/stream-logger/stream-logger");
-class App {
-    run() {
+exports.CommandExecutor = void 0;
+class CommandExecutor {
+    constructor(logger) {
+        this.logger = logger;
+    }
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            new ffmpeg_executor_1.FfmpegExecutor(stream_logger_1.ConsoleLogger.getInstance()).execute();
+            const input = yield this.prompt();
+            const command = this.build(input);
+            const stream = this.spawn(command);
+            this.processStream(stream, this.logger);
         });
     }
 }
-const app = new App();
-app.run();
+exports.CommandExecutor = CommandExecutor;
