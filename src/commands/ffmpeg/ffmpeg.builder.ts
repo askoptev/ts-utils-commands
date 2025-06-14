@@ -8,7 +8,7 @@ export class FfmpegBuilder {
     this.options.set('-c:v', 'libx24');
   }
 
-  Input(inputPath: string) {
+  input(inputPath: string) {
     this.inputPath = inputPath;
     return this;
   }

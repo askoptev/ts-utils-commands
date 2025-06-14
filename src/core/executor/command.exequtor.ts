@@ -3,10 +3,7 @@ import { IStreamLogger } from "../handlers/stream-logger.interface";
 import {ICommandExec} from "./command.types"
 
 export abstract class CommandExecutor<Input> {
-  private logger!: IStreamLogger;
-  contructor(logger: IStreamLogger) {
-    this.logger = logger;
-  }
+  constructor(private logger: IStreamLogger) {}
   async execute() {
     const input = await this.prompt();
     const command = this.build(input);
